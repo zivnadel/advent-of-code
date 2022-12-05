@@ -1,5 +1,5 @@
 def constructStacks(stacksStr):
-    stacks = [[], [], [], [], [], [], [], [], []]
+    stacks = [[] for _ in range(int(stacksStr.split()[-1]))]
     lines = stacksStr.split("\n")
     for line in lines:
         i = 0
@@ -31,4 +31,3 @@ def sol():
 
 if __name__ == "__main__":
     print(sol())
-
