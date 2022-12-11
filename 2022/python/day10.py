@@ -1,5 +1,5 @@
 def sol():
-    x, crt, p = 1, [1], 0
+    x, crt = 1, [1]
     with open("input.txt") as file:
         for line in file:
             if line.startswith("addx"):
@@ -9,13 +9,9 @@ def sol():
 
     print(sum(i * crt[i-1] for i in [20, 60, 100, 140, 180, 220]))
 
-    for _ in range(6):
+    for y in range(6):
         for x in range(40):
-            if x in [crt[p] - 1, crt[p], crt[p] + 1]:
-                print("#", end="")
-            else:
-                print(".", end="")
-            p += 1
+            print("#" if x in [crt[40*y + x] - 1, crt[40*y + x], crt[40*y + x] + 1] else ".", end="")
         print()
 
 if __name__ == "__main__":
