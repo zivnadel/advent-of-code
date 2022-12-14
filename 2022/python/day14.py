@@ -28,7 +28,7 @@ def sol(part):
                 break
             prev = new
 
-    return len(list(filter(lambda x: x == 'o', grid.values())))
+    return sum([x == "o" for x in grid.values()])
 
 if __name__ == "__main__":
     print(sol(1))
