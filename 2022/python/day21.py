@@ -1,25 +1,22 @@
-from z3 import Solver, Int, ArithRef, sat
+from z3 import Solver, Int, ArithRef
 
 def sol():
     tree = { name: node for name, node in [line.split(": ") for line in open("input.txt").read().splitlines()] }
 
-    def evaluate(curr):
-        if isinstance(curr, ArithRef): # instance of z3 operation
-            return curr
-        if curr.isdigit():
-            return int(curr)
-        c1, op, c2 = curr.split(" ")
+    def evaluate(node):
+        if isinstance(node, ArithRef): # instance of z3 operation
+            return node
+        if node.isdigit():
+            return int(node)
+        c1, op, c2 = node.split(" ")
         c1, c2 = evaluate(tree[c1]), evaluate(tree[c2])
         return eval(f"c1 {op} c2")
 
-    res1, res2 = evaluate(tree["root"]), 0
+    part1, solver, tree["humn"] = int(evaluate(tree["root"])), Solver(), Int("humn")
+    solver.add(evaluate(tree["root"].replace("+", "==")))
+    solver.check()
 
-    s, tree["humn"] = Solver(), Int("humn")
-    s.add(evaluate(tree["root"].replace("+", "==")))
-    assert s.check() == sat # satifsiable
-    res2 = s.model()[tree["humn"]]
-
-    return res1, res2
+    return part1, solver.model()[tree["humn"]]
 
 if __name__ == "__main__":
     print(sol())
