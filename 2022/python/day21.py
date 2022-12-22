@@ -1,4 +1,4 @@
-from z3 import Solver, Int, ArithRef
+from z3 import Solver, Int, ArithRef, sat
 
 def sol():
     tree = { name: node for name, node in [line.split(": ") for line in open("input.txt").read().splitlines()] }
@@ -14,9 +14,8 @@ def sol():
 
     part1, solver, tree["humn"] = int(evaluate(tree["root"])), Solver(), Int("humn")
     solver.add(evaluate(tree["root"].replace("+", "==")))
-    solver.check()
 
-    return part1, solver.model()[tree["humn"]]
+    return part1, solver.model()[tree["humn"]] if solver.check() == sat else None # only if satisfied
 
 if __name__ == "__main__":
     print(sol())
