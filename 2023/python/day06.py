@@ -2,17 +2,18 @@ import re
 import math
 
 with open("input.txt") as f:
-    time, dist = [list(map(int, re.findall(r"\d+", line))) for line in f.read().strip().splitlines()]
+    lines = f.read().strip().splitlines()
+    t1, d1 = [list(map(int, re.findall(r"\d+", line))) for line in lines]
+    t2, d2 = [int(''.join(re.findall(r"\d+", line))) for line in lines]
 
-def sol():
+def sol(time, dist):
     ways = []
-    for i, race in enumerate(time):
-        speeds = 0
-        for j in range(race+1):
-            speed = j * (race - j)
-            if speed > dist[i]:
-                speeds += 1
-        ways.append(speeds)
+    for r, d in zip(time, dist):
+        speed = 0
+        for j in range(r+1):
+            if j * (r - j) > d:
+                speed += 1
+        ways.append(speed)
     return math.prod(ways)
 
-print(sol())
+print(sol(t1, d1), sol([t2], [d2]))
