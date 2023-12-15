@@ -1,7 +1,5 @@
-from functools import cache
-
-rotate = lambda platform: tuple(*map(tuple, zip(*platform[::-1]))) # rotate clockwise 90
-load = lambda platform: sum((i for row in platform for i, ch in enumerate(row[::-1], 1) if ch == 'O'))
+rotate = lambda platform: [*map(list, zip(*platform[::-1]))] # rotate clockwise 90
+load = lambda platform: sum(i for row in platform for i, ch in enumerate(row[::-1], 1) if ch == 'O')
 north = lambda platform: rotate(rotate(rotate(platform))) # make it north
 
 with open("input.txt") as f:
@@ -17,7 +15,6 @@ def tilt(platform):
                 row[new], row[i] = row[i], row[new]
     return platform
 
-@cache
 def part2(platform):
     platform, cache, n = north(platform), {}, 1000000000
     for row in range(n):
