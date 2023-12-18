@@ -10,6 +10,6 @@ def sol(part):
         directions, length = (directions, length + steps) if part == 1 else (color[-2], length)
         coord = coord[0] + D[directions][0] * steps, coord[1] + D[directions][1] * steps
         vertices.append(coord)
-    return int(abs(sum((v1[0]+v2[0]) * (v1[1]-v2[1]) / 2 for v1, v2 in zip(vertices, vertices[1:]))) + length/2 + 1) # Shoelance
+    return int(abs(sum((v1[0]+v2[0]) * (v1[1]-v2[1]) / 2 for v1, v2 in zip(vertices, vertices[1:]))) + length/2 + 1) # Shoelance + Pick's Theorem
 
 print(sol(1), sol(2))
